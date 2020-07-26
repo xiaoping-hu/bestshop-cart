@@ -1,0 +1,42 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "hu.xiaoping.bestshop.cart",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.10.1",
+    "applicationType": "microservice",
+    "baseName": "cart",
+    "packageName": "hu.xiaoping.bestshop.cart",
+    "packageFolder": "hu/xiaoping/bestshop/cart",
+    "serverPort": "8082",
+    "authenticationType": "uaa",
+    "uaaBaseName": "uaa",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "gradle",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "ZjkzNWY0YThjYTE3YjBmM2EwYmZhOGZiYWM4NjhhMDc0YTYxZjFiZWRiMTlkYzkwNmEwMzU4MTg1MWQzYTViMzdiMmVlNjY5NzQ5YjVmZjRhOGViMzU1YjUxMTQzN2Y1MTViZWM4YjM4MGI5OTQ4YzJmMWU5MGI0OGM0YjQ5OTI=",
+    "embeddableLaunchScript": false,
+    "creationTimestamp": 1595744863937,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "clientPackageManager": "npm",
+    "nativeLanguage": "en",
+    "languages": ["en"],
+    "blueprints": [],
+    "skipClient": true,
+    "skipUserManagement": true
+  }
+}
