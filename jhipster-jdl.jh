@@ -1,0 +1,18 @@
+@service(serviceClass)
+entity CartDiscountRule{
+    name String maxlength(256) required,
+    minimumQuantity Integer required,
+    discountQuantity Integer required,
+    discountAmount Integer required
+}
+
+@service(serviceClass)
+entity CartDiscountRuleItem{
+    productId Integer required
+}
+
+relationship OneToMany{
+	CartDiscountRule{cartDiscountRuleItem} to CartDiscountRuleItem{cartDiscountRule}
+}
+
+paginate CartDiscountRule, CartDiscountRuleItem with pagination

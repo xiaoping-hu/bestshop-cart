@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity CartDiscountRuleItem.
+    -->
+    <changeSet id="20200726092213-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="cart_discount_rule_id"
+                                 baseTableName="cart_discount_rule_item"
+                                 constraintName="fk_cart_discount_rule_item_cart_discount_rule_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cart_discount_rule"/>
+
+    </changeSet>
+</databaseChangeLog>
