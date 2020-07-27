@@ -4,6 +4,7 @@ entity CartDiscountRule{
     minimumQuantity Integer required,
     discountQuantity Integer required,
     discountAmount Integer required
+    priority Integer required
 }
 
 @service(serviceClass)

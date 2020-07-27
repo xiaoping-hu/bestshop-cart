@@ -42,7 +42,11 @@ public class CartDiscountRule implements Serializable {
     @Column(name = "discount_amount", nullable = false)
     private Integer discountAmount;
 
-    @OneToMany(mappedBy = "cartDiscountRule")
+    @NotNull
+    @Column(name = "priority", nullable = false)
+    private Integer priority;
+
+    @OneToMany(mappedBy = "cartDiscountRule", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<CartDiscountRuleItem> cartDiscountRuleItems = new HashSet<>();
 
@@ -107,6 +111,19 @@ public class CartDiscountRule implements Serializable {
         this.discountAmount = discountAmount;
     }
 
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public CartDiscountRule priority(Integer priority) {
+        this.priority = priority;
+        return this;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
     public Set<CartDiscountRuleItem> getCartDiscountRuleItems() {
         return cartDiscountRuleItems;
     }
@@ -158,6 +175,7 @@ public class CartDiscountRule implements Serializable {
             ", minimumQuantity=" + getMinimumQuantity() +
             ", discountQuantity=" + getDiscountQuantity() +
             ", discountAmount=" + getDiscountAmount() +
+            ", priority=" + getPriority() +
             "}";
     }
 }

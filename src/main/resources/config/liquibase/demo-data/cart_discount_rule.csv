@@ -1,0 +1,3 @@
+id;name;minimum_quantity;discount_quantity;discount_amount;priority
+1;Buy one get one for free;2;1;100;0
+

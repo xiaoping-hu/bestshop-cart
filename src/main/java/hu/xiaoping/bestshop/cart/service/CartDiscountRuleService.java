@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -50,6 +51,16 @@ public class CartDiscountRuleService {
         return cartDiscountRuleRepository.findAll(pageable);
     }
 
+    /**
+     * Get all the cartDiscountRules order by priority
+     *
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<CartDiscountRule> findAllOrderByPriority() {
+        log.debug("Request to get all CartDiscountRules");
+        return cartDiscountRuleRepository.findAllByOrderByPriorityAsc();
+    }
 
     /**
      * Get one cartDiscountRule by id.

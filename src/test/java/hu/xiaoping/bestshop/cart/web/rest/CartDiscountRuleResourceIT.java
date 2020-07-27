@@ -44,6 +44,9 @@ public class CartDiscountRuleResourceIT {
     private static final Integer DEFAULT_DISCOUNT_AMOUNT = 1;
     private static final Integer UPDATED_DISCOUNT_AMOUNT = 2;
 
+    private static final Integer DEFAULT_PRIORITY = 1;
+    private static final Integer UPDATED_PRIORITY = 2;
+
     @Autowired
     private CartDiscountRuleRepository cartDiscountRuleRepository;
 
@@ -69,7 +72,8 @@ public class CartDiscountRuleResourceIT {
             .name(DEFAULT_NAME)
             .minimumQuantity(DEFAULT_MINIMUM_QUANTITY)
             .discountQuantity(DEFAULT_DISCOUNT_QUANTITY)
-            .discountAmount(DEFAULT_DISCOUNT_AMOUNT);
+            .discountAmount(DEFAULT_DISCOUNT_AMOUNT)
+            .priority(DEFAULT_PRIORITY);
         return cartDiscountRule;
     }
     /**
@@ -83,7 +87,8 @@ public class CartDiscountRuleResourceIT {
             .name(UPDATED_NAME)
             .minimumQuantity(UPDATED_MINIMUM_QUANTITY)
             .discountQuantity(UPDATED_DISCOUNT_QUANTITY)
-            .discountAmount(UPDATED_DISCOUNT_AMOUNT);
+            .discountAmount(UPDATED_DISCOUNT_AMOUNT)
+            .priority(UPDATED_PRIORITY);
         return cartDiscountRule;
     }
 
@@ -110,6 +115,7 @@ public class CartDiscountRuleResourceIT {
         assertThat(testCartDiscountRule.getMinimumQuantity()).isEqualTo(DEFAULT_MINIMUM_QUANTITY);
         assertThat(testCartDiscountRule.getDiscountQuantity()).isEqualTo(DEFAULT_DISCOUNT_QUANTITY);
         assertThat(testCartDiscountRule.getDiscountAmount()).isEqualTo(DEFAULT_DISCOUNT_AMOUNT);
+        assertThat(testCartDiscountRule.getPriority()).isEqualTo(DEFAULT_PRIORITY);
     }
 
     @Test
@@ -210,6 +216,25 @@ public class CartDiscountRuleResourceIT {
 
     @Test
     @Transactional
+    public void checkPriorityIsRequired() throws Exception {
+        int databaseSizeBeforeTest = cartDiscountRuleRepository.findAll().size();
+        // set the field null
+        cartDiscountRule.setPriority(null);
+
+        // Create the CartDiscountRule, which fails.
+
+
+        restCartDiscountRuleMockMvc.perform(post("/api/cart-discount-rules").with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(cartDiscountRule)))
+            .andExpect(status().isBadRequest());
+
+        List<CartDiscountRule> cartDiscountRuleList = cartDiscountRuleRepository.findAll();
+        assertThat(cartDiscountRuleList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllCartDiscountRules() throws Exception {
         // Initialize the database
         cartDiscountRuleRepository.saveAndFlush(cartDiscountRule);
@@ -222,7 +247,8 @@ public class CartDiscountRuleResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].minimumQuantity").value(hasItem(DEFAULT_MINIMUM_QUANTITY)))
             .andExpect(jsonPath("$.[*].discountQuantity").value(hasItem(DEFAULT_DISCOUNT_QUANTITY)))
-            .andExpect(jsonPath("$.[*].discountAmount").value(hasItem(DEFAULT_DISCOUNT_AMOUNT)));
+            .andExpect(jsonPath("$.[*].discountAmount").value(hasItem(DEFAULT_DISCOUNT_AMOUNT)))
+            .andExpect(jsonPath("$.[*].priority").value(hasItem(DEFAULT_PRIORITY)));
     }
     
     @Test
@@ -239,7 +265,8 @@ public class CartDiscountRuleResourceIT {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.minimumQuantity").value(DEFAULT_MINIMUM_QUANTITY))
             .andExpect(jsonPath("$.discountQuantity").value(DEFAULT_DISCOUNT_QUANTITY))
-            .andExpect(jsonPath("$.discountAmount").value(DEFAULT_DISCOUNT_AMOUNT));
+            .andExpect(jsonPath("$.discountAmount").value(DEFAULT_DISCOUNT_AMOUNT))
+            .andExpect(jsonPath("$.priority").value(DEFAULT_PRIORITY));
     }
     @Test
     @Transactional
@@ -265,7 +292,8 @@ public class CartDiscountRuleResourceIT {
             .name(UPDATED_NAME)
             .minimumQuantity(UPDATED_MINIMUM_QUANTITY)
             .discountQuantity(UPDATED_DISCOUNT_QUANTITY)
-            .discountAmount(UPDATED_DISCOUNT_AMOUNT);
+            .discountAmount(UPDATED_DISCOUNT_AMOUNT)
+            .priority(UPDATED_PRIORITY);
 
         restCartDiscountRuleMockMvc.perform(put("/api/cart-discount-rules").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -280,6 +308,7 @@ public class CartDiscountRuleResourceIT {
         assertThat(testCartDiscountRule.getMinimumQuantity()).isEqualTo(UPDATED_MINIMUM_QUANTITY);
         assertThat(testCartDiscountRule.getDiscountQuantity()).isEqualTo(UPDATED_DISCOUNT_QUANTITY);
         assertThat(testCartDiscountRule.getDiscountAmount()).isEqualTo(UPDATED_DISCOUNT_AMOUNT);
+        assertThat(testCartDiscountRule.getPriority()).isEqualTo(UPDATED_PRIORITY);
     }
 
     @Test
